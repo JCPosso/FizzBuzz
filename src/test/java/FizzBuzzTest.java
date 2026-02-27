@@ -48,4 +48,34 @@ class FizzBuzzTest {
         assertEquals("FizzBuzz", FizzBuzz.fizzbuzz(60));
         assertEquals("FizzBuzz", FizzBuzz.fizzbuzz(75));
     }
+
+    @Test
+    @DisplayName("Dado el número 1, cuando se ejecuta fizzbuzz, entonces retorna '1'")
+    void whenInputIsOne_thenReturnOne() {
+        assertEquals("1", FizzBuzz.fizzbuzz(1));
+    }
+    
+    @Test
+    @DisplayName("Dado un número muy grande que es múltiplo de 15, cuando se ejecuta fizzbuzz, entonces retorna 'FizzBuzz'")
+    void whenInputIsLargeMultipleOfFifteen_thenReturnFizzBuzz() {
+        assertEquals("FizzBuzz", FizzBuzz.fizzbuzz(300));
+        assertEquals("FizzBuzz", FizzBuzz.fizzbuzz(1500));
+        assertEquals("FizzBuzz", FizzBuzz.fizzbuzz(9000));
+    }
+    
+    @Test
+    @DisplayName("Dado un número muy grande que es múltiplo de 3 pero no de 5, cuando se ejecuta fizzbuzz, entonces retorna 'Fizz'")
+    void whenInputIsLargeMultipleOfThreeOnly_thenReturnFizz() {
+        assertEquals("Fizz", FizzBuzz.fizzbuzz(99));
+        assertEquals("Fizz", FizzBuzz.fizzbuzz(333));
+        assertEquals("Fizz", FizzBuzz.fizzbuzz(999));
+    }
+    
+    @Test
+    @DisplayName("Dado un número muy grande que es múltiplo de 5 pero no de 3, cuando se ejecuta fizzbuzz, entonces retorna 'Buzz'")
+    void whenInputIsLargeMultipleOfFiveOnly_thenReturnBuzz() {
+        assertEquals("Buzz", FizzBuzz.fizzbuzz(100));
+        assertEquals("Buzz", FizzBuzz.fizzbuzz(500));
+        assertEquals("Buzz", FizzBuzz.fizzbuzz(1000));
+    }
 }
