@@ -1,0 +1,48 @@
+name: FizzBuzz CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        java-version: ['17', '21']
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+    
+    - name: Configurar Java ${{ matrix.java-version }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ matrix.java-version }}
+        distribution: 'temurin'
+        cache: maven
+    
+    - name: Compilar con Maven
+      run: mvn clean compile
+    
+    - name: Ejecutar pruebas unitarias
+      run: mvn test
+    
+    - name: Publicar resultados de pruebas
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-reports-java-${{ matrix.java-version }}
+        path: target/surefire-reports/
+    
+    - name: Reportar resultados en PR
+      if: github.event_name == 'pull_request'
+      uses: dorny/test-reporter@v1
+      with:
+        name: Test Results (Java ${{ matrix.java-version }})
+        path: 'target/surefire-reports/TEST-*.xml'
+        reporter: 'java-junit'
+        fail-on-error: true
