@@ -1,14 +1,30 @@
+/**
+ * Implementación juego FizzBuzz.
+ */
 public class FizzBuzz {
-    public static String fizzbuzz(int n) {
-        if (n % 15 == 0) {
+    
+    public static String fizzbuzz(int number) {
+        if (isFizzBuzz(number)) {
             return "FizzBuzz";
         }
-        if (n % 3 == 0) {
+        if (isFizz(number)) {
             return "Fizz";
         }
-        if (n % 5 == 0) {
+        if (isBuzz(number)) {
             return "Buzz";
         }
-        return String.valueOf(n);
+        return String.valueOf(number);
+    }
+
+    private static boolean isFizzBuzz(int number) {
+        return number % 15 == 0;
+    }
+
+    private static boolean isFizz(int number) {
+        return number % 3 == 0;
+    }
+
+    private static boolean isBuzz(int number) {
+        return number % 5 == 0;
     }
 }
